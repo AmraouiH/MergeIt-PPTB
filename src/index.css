@@ -1,0 +1,1201 @@
+/*
+ * MergeIt visual identity: indigo accent, Master (blue) / Slave (orange) roles, amber differences.
+ * Neutral colors come from the Fluent tokens of src/theme.ts (soft light / "dim" dark).
+ * The role colors below are set on <html> (data-mi-theme) so dialogs rendered in portals get them too.
+ */
+
+:root {
+    --mi-accent: #5056d9;
+    --mi-accent-solid: #5056d9;
+    --mi-accent-soft: rgba(80, 86, 217, 0.08);
+    --mi-master: #2f6fe4;
+    --mi-master-solid: #2f6fe4;
+    --mi-slave: #e5671a;
+    --mi-slave-solid: #e5671a;
+    --mi-diff: #e8a317;
+    --mi-success: #1f9d55;
+    --mi-teal: #0f9f8f;
+    --mi-danger: #d23b3b;
+    --mi-header: linear-gradient(115deg, #4f56d8 0%, #6559de 55%, #8462e4 100%);
+    --mi-master-soft: rgba(47, 111, 228, 0.09);
+    --mi-master-strong: rgba(47, 111, 228, 0.18);
+    --mi-slave-soft: rgba(229, 103, 26, 0.09);
+    --mi-slave-strong: rgba(229, 103, 26, 0.18);
+    --mi-diff-soft: rgba(232, 163, 23, 0.08);
+    --mi-card-shadow: 0 1px 2px rgba(31, 41, 55, 0.05), 0 4px 14px rgba(31, 41, 55, 0.05);
+}
+
+:root[data-mi-theme='dark'] {
+    --mi-accent: #959af3;
+    --mi-accent-solid: #5a60de;
+    --mi-accent-soft: rgba(131, 136, 240, 0.12);
+    --mi-master: #7aaaff;
+    --mi-master-solid: #3d7be8;
+    --mi-slave: #ffa066;
+    --mi-slave-solid: #e2702c;
+    --mi-diff: #f4b942;
+    --mi-success: #4fd18b;
+    --mi-teal: #3fd6c3;
+    --mi-danger: #ff8a8a;
+    --mi-header: linear-gradient(115deg, #4549c4 0%, #5a50cc 55%, #7356d2 100%);
+    --mi-master-soft: rgba(122, 170, 255, 0.13);
+    --mi-master-strong: rgba(122, 170, 255, 0.25);
+    --mi-slave-soft: rgba(255, 160, 102, 0.13);
+    --mi-slave-strong: rgba(255, 160, 102, 0.25);
+    --mi-diff-soft: rgba(244, 185, 66, 0.08);
+    --mi-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+}
+
+.mi-root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--colorNeutralBackground2);
+    color: var(--colorNeutralForeground1);
+    position: relative;
+}
+
+/* Header */
+
+.mi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 8px 16px;
+    background: var(--mi-header);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(60, 64, 160, 0.18);
+}
+
+.mi-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.mi-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.mi-title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.mi-subtitle {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.mi-header-tools {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+.mi-connection {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-right: 8px;
+}
+
+.mi-connection-on {
+    opacity: 1;
+    color: #b9f6e4;
+}
+
+.mi-header-button.fui-Button,
+.mi-header-button.fui-Button:hover,
+.mi-header-button.fui-Button:hover:active {
+    color: #fff;
+}
+
+.mi-header-button.fui-Button:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.mi-header-button .fui-Button__icon {
+    color: #fff;
+}
+
+.mi-heart {
+    color: #ff6b81;
+}
+
+/* Layout */
+
+.mi-main {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(240px, 11fr) minmax(320px, 9fr);
+    gap: 12px;
+    padding: 12px;
+}
+
+.mi-bottom {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 440px;
+    gap: 12px;
+}
+
+@media (max-width: 1000px) {
+    .mi-root {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    body {
+        overflow: auto;
+    }
+
+    .mi-main {
+        grid-template-rows: auto;
+    }
+
+    .mi-bottom {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .mi-card {
+        min-height: 360px;
+    }
+}
+
+/* Cards */
+
+.mi-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    background: var(--colorNeutralBackground1);
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: 12px;
+    box-shadow: var(--mi-card-shadow);
+    overflow: hidden;
+}
+
+.mi-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px 6px;
+}
+
+.mi-step {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--mi-accent-solid);
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.mi-card-titles h2 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.mi-card-titles p {
+    font-size: 12px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-card-actions {
+    margin-left: auto;
+}
+
+.mi-card-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 6px 14px 12px;
+}
+
+/* Toolbars */
+
+.mi-toolbar,
+.mi-records-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.mi-toolbar-spacer {
+    flex: 1;
+}
+
+.mi-field {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mi-view-dropdown {
+    min-width: 260px;
+    max-width: 380px;
+}
+
+.mi-search {
+    min-width: 200px;
+}
+
+.mi-muted {
+    color: var(--colorNeutralForeground3);
+    font-size: 12px;
+}
+
+.mi-subtle {
+    color: var(--colorNeutralForeground4);
+    font-style: italic;
+}
+
+.mi-mono {
+    font-family: Consolas, 'Cascadia Mono', monospace;
+    font-size: 12px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-pre {
+    white-space: pre-line;
+}
+
+/* Role colored buttons */
+
+.mi-btn-master.fui-Button:not(:disabled) {
+    color: var(--mi-master);
+    border-color: var(--mi-master);
+}
+
+.mi-btn-slave.fui-Button:not(:disabled) {
+    color: var(--mi-slave);
+    border-color: var(--mi-slave);
+}
+
+.mi-text-master {
+    color: var(--mi-master) !important;
+}
+
+.mi-text-slave {
+    color: var(--mi-slave) !important;
+}
+
+/* Grids */
+
+.mi-grid-wrapper {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: 8px;
+}
+
+.mi-grid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.mi-grid th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--colorNeutralForeground3);
+    background: var(--colorNeutralBackground3);
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--colorNeutralStroke2);
+    white-space: nowrap;
+}
+
+.mi-grid td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--colorNeutralStroke3);
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mi-records-grid tbody tr {
+    cursor: pointer;
+}
+
+.mi-records-grid tbody tr:hover {
+    background: var(--colorNeutralBackground1Hover);
+}
+
+.mi-row-selected {
+    background: var(--colorBrandBackground2) !important;
+}
+
+.mi-row-master {
+    background: var(--mi-master-soft);
+}
+
+.mi-row-master.mi-row-selected {
+    background: var(--mi-master-strong) !important;
+}
+
+.mi-row-slave {
+    background: var(--mi-slave-soft);
+}
+
+.mi-row-slave.mi-row-selected {
+    background: var(--mi-slave-strong) !important;
+}
+
+.mi-role-col {
+    width: 92px;
+}
+
+.mi-pill {
+    display: inline-block;
+    min-width: 66px;
+    text-align: center;
+    padding: 1px 8px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.mi-pill-master {
+    background: var(--mi-master-solid);
+}
+
+.mi-pill-slave {
+    background: var(--mi-slave-solid);
+}
+
+/* Comparison grid */
+
+.mi-compare-grid tr:focus {
+    outline: 2px solid var(--mi-accent);
+    outline-offset: -2px;
+}
+
+.mi-row-same td {
+    color: var(--colorNeutralForeground4);
+}
+
+.mi-row-diff {
+    background: var(--mi-diff-soft);
+}
+
+.mi-row-diff .mi-field-name {
+    box-shadow: inset 3px 0 0 var(--mi-diff);
+}
+
+.mi-field-name {
+    font-weight: 600;
+}
+
+.mi-choice-col {
+    width: 64px;
+    text-align: center !important;
+    cursor: pointer;
+}
+
+.mi-value {
+    cursor: pointer;
+}
+
+.mi-value-master {
+    background: var(--mi-master-soft);
+    color: var(--mi-master);
+    font-weight: 600;
+}
+
+.mi-value-slave {
+    background: var(--mi-slave-soft);
+    color: var(--mi-slave);
+    font-weight: 600;
+}
+
+.mi-radio {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.6px solid var(--colorNeutralStroke1);
+    position: relative;
+    vertical-align: middle;
+}
+
+.mi-radio-on.mi-radio-master {
+    border-color: var(--mi-master);
+}
+
+.mi-radio-on.mi-radio-slave {
+    border-color: var(--mi-slave);
+}
+
+.mi-radio-on::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.mi-radio-on.mi-radio-master::after {
+    background: var(--mi-master);
+}
+
+.mi-radio-on.mi-radio-slave::after {
+    background: var(--mi-slave);
+}
+
+.mi-row-same .mi-radio-on {
+    border-color: var(--colorNeutralForeground4);
+}
+
+.mi-row-same .mi-radio-on::after {
+    background: var(--colorNeutralForeground4);
+}
+
+/* Chips */
+
+.mi-chip {
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 260px;
+    padding: 3px 12px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    line-height: 1.25;
+}
+
+.mi-chip-master {
+    background: var(--mi-master-soft);
+    border-color: var(--mi-master);
+}
+
+.mi-chip-slave {
+    background: var(--mi-slave-soft);
+    border-color: var(--mi-slave);
+}
+
+.mi-chip-caption {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.mi-chip-master .mi-chip-caption {
+    color: var(--mi-master);
+}
+
+.mi-chip-slave .mi-chip-caption {
+    color: var(--mi-slave);
+}
+
+.mi-chip-name {
+    font-size: 13px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mi-chip-placeholder {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--colorNeutralForeground4);
+}
+
+.mi-chips-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.mi-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.mi-dot-master {
+    background: var(--mi-master-solid);
+}
+
+.mi-dot-slave {
+    background: var(--mi-slave-solid);
+}
+
+/* Merge card */
+
+.mi-modes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mi-choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 10px 8px 2px;
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.mi-choice-on {
+    border-color: var(--mi-accent);
+    background: var(--mi-accent-soft);
+}
+
+.mi-choice-disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.mi-choice-title {
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.mi-choice-text {
+    font-size: 12px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-choice-note {
+    font-size: 12px;
+    color: var(--mi-diff);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.mi-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.mi-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border-top: 3px solid;
+    background: var(--colorNeutralBackground3);
+}
+
+.mi-stat-value {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.mi-stat-caption {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-stat-accent {
+    border-color: var(--mi-accent);
+}
+
+.mi-stat-diff {
+    border-color: var(--mi-diff);
+}
+
+.mi-stat-success {
+    border-color: var(--mi-success);
+}
+
+.mi-stat-teal {
+    border-color: var(--mi-teal);
+}
+
+/* Empty state */
+
+.mi-empty {
+    height: 100%;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--colorNeutralForeground4);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px;
+}
+
+/* Dialogs */
+
+.mi-dialog-small {
+    max-width: 520px;
+}
+
+.mi-dialog-medium {
+    max-width: 640px;
+}
+
+.mi-confirm-surface.fui-DialogSurface {
+    max-width: 780px;
+    width: 92vw;
+}
+
+.mi-confirm-merge.fui-Button {
+    white-space: nowrap;
+}
+
+.mi-dialog-large {
+    max-width: 960px;
+    width: 90vw;
+}
+
+.mi-dialog-title-error {
+    color: var(--mi-danger);
+}
+
+.mi-dialog-title-success {
+    color: var(--mi-success);
+}
+
+.mi-confirm,
+.mi-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mi-confirm h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.mi-confirm-grid {
+    max-height: 40vh;
+}
+
+.mi-old-value {
+    color: var(--mi-danger);
+    text-decoration: line-through;
+}
+
+.mi-new-value {
+    color: var(--mi-success);
+    font-weight: 600;
+}
+
+.mi-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--mi-accent);
+    margin-top: 6px;
+}
+
+.mi-checklist {
+    display: flex;
+    flex-direction: column;
+    max-height: 45vh;
+    overflow-y: auto;
+}
+
+/* Busy overlay */
+
+.mi-busy {
+    position: absolute;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    background: rgba(30, 36, 50, 0.28);
+    backdrop-filter: blur(1.5px);
+}
+
+.mi-busy-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 480px;
+    padding: 18px 22px;
+    border-radius: 10px;
+    background: var(--colorNeutralBackground1);
+    box-shadow: var(--shadow16);
+}
+
+/* Table picker */
+
+.mi-table-picker {
+    position: relative;
+}
+
+.mi-table-combo {
+    width: 320px;
+}
+
+.mi-picker-icon {
+    cursor: pointer;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-picker-panel {
+    position: fixed;
+    z-index: 900;
+    overflow-y: auto;
+    padding: 4px;
+    background: var(--colorNeutralBackground1);
+    border: 1px solid var(--colorNeutralStroke1);
+    border-radius: 8px;
+    box-shadow: var(--shadow16);
+}
+
+.mi-picker-count {
+    padding: 4px 8px 6px;
+    font-size: 11px;
+    color: var(--colorNeutralForeground3);
+    border-bottom: 1px solid var(--colorNeutralStroke3);
+    margin-bottom: 4px;
+}
+
+.mi-picker-option {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.mi-picker-active {
+    background: var(--colorNeutralBackground1Hover);
+}
+
+.mi-picker-selected .mi-picker-display {
+    color: var(--mi-accent);
+    font-weight: 600;
+}
+
+.mi-picker-display {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mi-picker-logical {
+    flex: none;
+    font-family: Consolas, 'Cascadia Mono', monospace;
+    font-size: 12px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-picker-empty {
+    padding: 8px;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--colorNeutralForeground3);
+}
+
+/* Expand / restore sections 2 and 3 */
+
+.mi-card-toggle.fui-Button {
+    min-width: 0;
+    font-weight: 400;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-main.mi-expanded {
+    grid-template-rows: minmax(0, 1fr);
+}
+
+.mi-expanded .mi-card-records {
+    display: none;
+}
+
+.mi-expanded .mi-bottom {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.mi-expanded-compare .mi-card-merge,
+.mi-expanded-merge .mi-card-compare {
+    display: none;
+}
+
+.mi-expanded-merge .mi-card-merge .mi-modes {
+    flex-direction: row;
+}
+
+.mi-expanded-merge .mi-card-merge .mi-choice {
+    flex: 1;
+}
+
+/* Merge card: scrollable content + fixed footer */
+
+.mi-card-merge .mi-card-body {
+    overflow: hidden;
+}
+
+.mi-merge-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 2px;
+}
+
+.mi-merge-scroll > * {
+    flex: none;
+}
+
+.mi-merge-footer {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--colorNeutralStroke3);
+}
+
+.mi-reassign .fui-Checkbox__label {
+    font-weight: 600;
+}
+
+/* Related records panel */
+
+.mi-relationships {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: 10px;
+    background: var(--colorNeutralBackground3);
+}
+
+.mi-rel-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 2px;
+}
+
+.mi-rel-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.mi-rel-hint {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-rel-loading,
+.mi-rel-empty {
+    padding: 10px 4px;
+    font-size: 14px;
+    color: var(--colorNeutralForeground2);
+}
+
+.mi-rel-item.fui-Checkbox {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    background: var(--colorNeutralBackground1);
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: 8px;
+}
+
+.mi-rel-item .fui-Checkbox__label {
+    flex: 1;
+    min-width: 0;
+}
+
+.mi-rel-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.mi-rel-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.mi-rel-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.mi-rel-path {
+    font-family: Consolas, 'Cascadia Mono', monospace;
+    font-size: 12px;
+    color: var(--colorNeutralForeground3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mi-rel-count {
+    flex: none;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mi-teal);
+    background: color-mix(in srgb, var(--mi-teal) 14%, transparent);
+}
+
+/* Confirmation / result dialogs */
+
+.mi-dlg-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.mi-dlg-subtitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--colorNeutralForeground3);
+    margin-top: 2px;
+}
+
+.mi-confirm {
+    gap: 16px !important;
+}
+
+.mi-merge-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+}
+
+.mi-flow-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border-left: 4px solid;
+}
+
+.mi-flow-slave {
+    background: var(--mi-slave-soft);
+    border-color: var(--mi-slave-solid);
+}
+
+.mi-flow-master {
+    background: var(--mi-master-soft);
+    border-color: var(--mi-master-solid);
+}
+
+.mi-flow-role {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.mi-flow-slave .mi-flow-role {
+    color: var(--mi-slave);
+}
+
+.mi-flow-master .mi-flow-role {
+    color: var(--mi-master);
+}
+
+.mi-flow-name {
+    font-size: 16px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mi-flow-arrow {
+    font-size: 24px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-confirm-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.mi-confirm-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--colorNeutralBackground3);
+    border: 1px solid var(--colorNeutralStroke3);
+}
+
+.mi-confirm-tile-value {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--mi-accent);
+}
+
+.mi-confirm-tile-text {
+    font-size: 16px;
+    padding-top: 4px;
+}
+
+.mi-confirm-tile-caption {
+    font-size: 12px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-confirm-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.mi-steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.mi-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.4;
+}
+
+.mi-steps .mi-dot {
+    margin-top: 6px;
+    flex: none;
+}
+
+.mi-step-icon {
+    flex: none;
+    font-size: 18px;
+    color: var(--mi-accent);
+    margin-top: 1px;
+}
+
+.mi-step-safe {
+    color: var(--mi-success);
+}
+
+.mi-rel-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.mi-rel-chip {
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: var(--colorNeutralBackground3);
+    border: 1px solid var(--colorNeutralStroke2);
+}
+
+.mi-rel-chip b {
+    color: var(--mi-teal);
+    margin-left: 2px;
+}
+
+.mi-change-arrow {
+    width: 24px;
+    color: var(--colorNeutralForeground4);
+    text-align: center;
+}
+
+.mi-confirm-grid td {
+    white-space: normal;
+    vertical-align: top;
+}
+
+.mi-confirm-actions {
+    align-items: center;
+}
+
+.mi-irreversible {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    font-size: 13px;
+    color: var(--colorNeutralForeground3);
+}
+
+.mi-result-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mi-result-icon {
+    font-size: 30px;
+    color: var(--mi-success);
+}

@@ -1,0 +1,74 @@
+{
+    "name": "pptb-mergeit-record-merger",
+    "version": "1.0.0",
+    "displayName": "MergeIt - Record Merger for Dataverse",
+    "description": "Merge two active Dataverse records field by field. Compare values side by side, choose which values the Master keeps, then use a transaction-based manual merge or Dataverse's native merge for account, contact, lead, and incident. Optionally reassign related child records during a manual merge. The Slave is deactivated after the merge.",
+    "main": "index.html",
+    "icon": "icon/mergeit.svg",
+    "author": "Hamza AMRAOUI",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Hamza AMRAOUI",
+            "url": "https://www.linkedin.com/in/hamza-amraoui/"
+        }
+    ],
+    "configurations": {
+        "repository": "https://github.com/AmraouiH/MergeIt",
+        "website": "https://github.com/AmraouiH/MergeIt",
+        "readmeUrl": "https://raw.githubusercontent.com/AmraouiH/MergeIt/master/README.md"
+    },
+    "features": {
+        "connections": 1,
+        "minAPI": "1.2.7"
+    },
+    "keywords": [
+        "powerplatform",
+        "dataverse",
+        "dynamics365",
+        "merge",
+        "duplicate",
+        "toolbox"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AmraouiH/MergeIt.git"
+    },
+    "bugs": {
+        "url": "https://github.com/AmraouiH/MergeIt/issues"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "scripts": {
+        "build": "tsc && vite build",
+        "dev": "vite",
+        "watch": "vite build --watch",
+        "dev-watch": "vite build --mode development --watch",
+        "preview": "vite preview",
+        "finalize-package": "npm shrinkwrap",
+        "validate": "pptb-validate",
+        "version-stable": "npm version patch --no-git-tag-version",
+        "publish-package": "npm run build && npm run version-stable && npm publish --access public",
+        "test:e2e": "node tests/e2e/run.cjs"
+    },
+    "dependencies": {
+        "@fluentui/react-components": "^9.72.7",
+        "@fluentui/react-icons": "^2.0.314",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    },
+    "devDependencies": {
+        "@pptb/types": "^1.2.0",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "@vitejs/plugin-react": "^4.3.4",
+        "playwright-core": "^1.48.2",
+        "typescript": "^5.6.3",
+        "vite": "^7.1.11"
+    },
+    "files": [
+        "dist",
+        "npm-shrinkwrap.json"
+    ]
+}
